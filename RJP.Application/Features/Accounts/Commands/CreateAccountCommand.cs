@@ -3,18 +3,20 @@ using MediatR;
 using RJP.Application.Contracts.Persistence;
 using RJP.Application.DTOs;
 using RJP.Application.DTOs.Validators;
+using RJP.Application.Exceptions;
+using RJP.Application.Responses;
 using RJP.Domain;
-using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace RJP.Application.Features.Accounts.Commands
 {
-    public class CreateAccountCommand : IRequest<int>
+    public class CreateAccountCommand : IRequest<BaseCommandResponse>
     {
         public AccountDto AccountDto{ get; set; }
 
-        public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand, int>
+        public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand, BaseCommandResponse>
         {
             private readonly IUnitOfWork _unitOfWork;
 
@@ -24,20 +26,31 @@ namespace RJP.Application.Features.Accounts.Commands
                 _unitOfWork = unitOfWork;
                 _mapper = mapper;
             }
-            public async Task<int> Handle(CreateAccountCommand command, CancellationToken cancellationToken)
+            public async Task<BaseCommandResponse> Handle(CreateAccountCommand command, CancellationToken cancellationToken)
             {
+                var response = new BaseCommandResponse();
+
                 var validator = new AccountDtoValidator(_unitOfWork.CustomerRepository);
                 var validationResult = await validator.ValidateAsync(command.AccountDto);
 
                 if (!validationResult.IsValid)
                 {
-                    throw new Exception();
+                    response.Success = false;
+                    response.Message = "Account Creation Failed";
+                    response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
+                    throw new ValidationException(validationResult);
+                }
+                else
+                {
+                    var account = _mapper.Map<Account>(command.AccountDto);
+                    account = await _unitOfWork.AccountRepository.Add(account);
+                    await _unitOfWork.Save();
+                    response.Success = true;
+                    response.Message = "Account Creation Successful";
                 }
 
-                var account = _mapper.Map<Account>(command.AccountDto);
-                account = await _unitOfWork.AccountRepository.Add(account);
-                await _unitOfWork.Save();
-                return account.Id;
+               
+                return response;
 
             }
         }

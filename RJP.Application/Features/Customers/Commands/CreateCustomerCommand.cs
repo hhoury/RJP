@@ -36,7 +36,7 @@ namespace RJP.Application.Features.Customers.Commands
                 if (!validationResult.IsValid)
                 {
                     response.Success = false;
-                    response.Message = "Allocations Failed";
+                    response.Message = "Customer Creation Failed";
                     response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
                     throw new ValidationException(validationResult);
                 }
@@ -50,9 +50,6 @@ namespace RJP.Application.Features.Customers.Commands
                     
                 }
                 return response;
-
-
-
             }
         }
     }

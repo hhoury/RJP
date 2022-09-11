@@ -49,7 +49,6 @@ namespace TransactionService.API
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "TransactionService.API v1");
-                    c.RoutePrefix = string.Empty;
                 });
             }
             app.UseMiddleware<ExceptionMiddleware>();

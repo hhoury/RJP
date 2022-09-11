@@ -1,8 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RJP.Application.DTOs;
+using RJP.Application.Features.Customers.Commands;
 using RJP.Application.Features.Transactions.Commands;
 using RJP.Application.Features.Transactions.Queries;
+using RJP.Domain;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace TransactionService.API.Controllers
@@ -15,37 +20,53 @@ namespace TransactionService.API.Controllers
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService(typeof(IMediator)) as IMediator;
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<TransactionDto>>> Get()
         {
             return Ok(await Mediator.Send(new GetAllTransactionsQuery()));
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult> GetById(int id)
         {
             return Ok(await Mediator.Send(new GetTransactionsByIdQuery { Id = id }));
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CreateTransactionCommand command)
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> Post([FromBody] TransactionDto transaction)
         {
-            return Ok(await Mediator.Send(command));
+            var command = new CreateTransactionCommand { TransacionDto = transaction};
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UpdateTransactionCommand command)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Put([FromBody] TransactionDto transaction)
         {
-            if (id != command.TransactionDto.Id)
-            {
-                return BadRequest();
-            }
-            return Ok(await Mediator.Send(command));
+            var command = new UpdateTransactionCommand { TransactionDto = transaction};
+            await _mediator.Send(command);
+            return NoContent();
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id, DeleteTransactionByIdCommand command)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Delete(int id)
         {
-            if (id != command.Id)
-            {
-                return BadRequest();
-            }
-            return Ok(await Mediator.Send(command));
+            var command = new DeleteTransactionByIdCommand { Id = id };
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> DeleteByAccountId(int accountId)
+        {
+            var command = new DeleteTransactionsByAccountId { AccountId = accountId};
+            await _mediator.Send(command);
+            return NoContent();
         }
     }
 }

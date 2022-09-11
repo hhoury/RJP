@@ -1,9 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RJP.Application.DTOs;
 using RJP.Application.Features.Customers.Commands;
 using RJP.Application.Features.Customers.Queries;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CustomerService.API.Controllers
 {
@@ -16,37 +20,42 @@ namespace CustomerService.API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<CustomerDto>>> Get()
         {
             return Ok(await Mediator.Send(new GetAllCustomersQuery()));
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult> Get(int id)
         {
             return Ok(await Mediator.Send(new GetCustomerByIdQuery { Id = id }));
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCustomerCommand command)
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> Post([FromBody] CustomerDto customer)
         {
-            return Ok(await Mediator.Send(command));
+            var command = new CreateCustomerCommand { CustomerDto = customer };
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UpdateCustomerCommand command)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Put([FromBody] CustomerDto customer)
         {
-            if (id != command.CustomerDto.Id)
-            {
-                return BadRequest();
-            }
-            return Ok(await Mediator.Send(command));
+            var command = new UpdateCustomerCommand { CustomerDto = customer };
+            await _mediator.Send(command);
+            return NoContent();
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id, DeleteCustomerByIdCommand command)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Delete(int id)
         {
-            if (id != command.Id)
-            {
-                return BadRequest();
-            }
-            return Ok(await Mediator.Send(command));
+            var command = new DeleteCustomerByIdCommand { Id = id };
+            await _mediator.Send(command);
+            return NoContent();
         }
 
     }
