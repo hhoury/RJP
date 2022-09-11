@@ -4,14 +4,16 @@ using BSyncroRJP.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BSyncroRJP.Persistence.Migrations
 {
     [DbContext(typeof(RJPDbContext))]
-    partial class RJPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220911201236_decimal")]
+    partial class @decimal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

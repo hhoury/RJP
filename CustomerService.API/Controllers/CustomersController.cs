@@ -16,18 +16,21 @@ namespace CustomerService.API.Controllers
     public class CustomersController : ControllerBase
     {
         private IMediator _mediator;
-        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService(typeof(IMediator)) as IMediator;
+        public CustomersController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerDto>>> Get()
         {
-            return Ok(await Mediator.Send(new GetAllCustomersQuery()));
+            return Ok(await _mediator.Send(new GetAllCustomersQuery()));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
-            return Ok(await Mediator.Send(new GetCustomerByIdQuery { Id = id }));
+            return Ok(await _mediator.Send(new GetCustomerByIdQuery { Id = id }));
         }
         [HttpPost]
         [ProducesResponseType(200)]

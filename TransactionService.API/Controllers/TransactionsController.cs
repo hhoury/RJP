@@ -17,17 +17,26 @@ namespace TransactionService.API.Controllers
     public class TransactionsController : ControllerBase
     {
         private IMediator _mediator;
-        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService(typeof(IMediator)) as IMediator;
 
+        public TransactionsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TransactionDto>>> Get()
         {
-            return Ok(await Mediator.Send(new GetAllTransactionsQuery()));
+            return Ok(await _mediator.Send(new GetAllTransactionsQuery()));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult> GetById(int id)
         {
-            return Ok(await Mediator.Send(new GetTransactionsByIdQuery { Id = id }));
+            return Ok(await _mediator.Send(new GetTransactionsByIdQuery { Id = id }));
+        }
+        [HttpGet]
+        [Route("account/{accountId}")]
+        public async Task<ActionResult<IEnumerable<TransactionDto>>> GetByAccountId(int accountId)
+        {
+            return Ok(await _mediator.Send(new GetTransactionsByAccountIdQuery { AccountId = accountId }));
         }
         [HttpPost]
         [ProducesResponseType(200)]
@@ -58,7 +67,8 @@ namespace TransactionService.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("account/{accountId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]

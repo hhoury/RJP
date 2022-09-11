@@ -18,37 +18,42 @@ namespace AccountService.API.Controllers
     public class AccountsController : ControllerBase
     {
         private IMediator _mediator;
-        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService(typeof(IMediator)) as IMediator;
+        public AccountsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AccountDto>>> Get()
         {
-            return Ok(await Mediator.Send(new GetAllAccountsQuery()));
+            return Ok(await _mediator.Send(new GetAllAccountsQuery()));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
-            return Ok(await Mediator.Send(new GetAccountByIdQuery { Id = id }));
+            return Ok(await _mediator.Send(new GetAccountByIdQuery { Id = id }));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("(customer/{customerId})")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<AccountDto>>> GetByCustomerId(int customerId)
         {
-            return Ok(await Mediator.Send(new GetAllAccountsByCustomerIdQuery { CustomerId = customerId }));
+            return Ok(await _mediator.Send(new GetAllAccountsByCustomerIdQuery { CustomerId = customerId }));
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(CreateAccountCommand command)
+        public async Task<ActionResult> Post([FromBody]  CreateAccountCommand command)
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await _mediator.Send(command));
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Put(AccountDto account)
+        public async Task<ActionResult> Put([FromBody] AccountDto account)
         {
             var command = new UpdateAccountCommand { AccountDto = account };
             await _mediator.Send(command);
@@ -66,7 +71,8 @@ namespace AccountService.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("customer/{customerId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
