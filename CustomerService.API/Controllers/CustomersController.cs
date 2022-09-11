@@ -35,9 +35,9 @@ namespace CustomerService.API.Controllers
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult> Post([FromBody] CustomerDto customer)
+        public async Task<ActionResult> Post([FromBody] CreateCustomerDto customer)
         {
-            var command = new CreateCustomerCommand { CustomerDto = customer };
+            var command = new CreateCustomerCommand { CreateCustomerDto = customer };
             var response = await _mediator.Send(command);
             return Ok(response);
         }

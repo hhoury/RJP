@@ -5,7 +5,6 @@ using RJP.Domain;
 using AutoMapper;
 using RJP.Application.DTOs;
 using RJP.Application.DTOs.Validators;
-using System;
 using RJP.Application.Contracts.Persistence;
 using RJP.Application.Exceptions;
 using RJP.Application.Responses;
@@ -16,7 +15,7 @@ namespace RJP.Application.Features.Customers.Commands
 
     public class CreateCustomerCommand : IRequest<BaseCommandResponse>
     {
-        public CustomerDto CustomerDto{ get; set; }
+        public CreateCustomerDto CreateCustomerDto { get; set; }
 
         public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, BaseCommandResponse>
         {
@@ -30,8 +29,8 @@ namespace RJP.Application.Features.Customers.Commands
             public async Task<BaseCommandResponse> Handle(CreateCustomerCommand command, CancellationToken cancellationToken)
             {
                 var response = new BaseCommandResponse();
-                var validator = new CustomerDtoValidator();
-                var validationResult = await validator.ValidateAsync(command.CustomerDto);
+                var validator = new CreateCustomerDtoValidator();
+                var validationResult = await validator.ValidateAsync(command.CreateCustomerDto);
 
                 if (!validationResult.IsValid)
                 {
@@ -42,7 +41,7 @@ namespace RJP.Application.Features.Customers.Commands
                 }
                 else
                 {
-                    var customer = _mapper.Map<Customer>(command.CustomerDto);
+                    var customer = _mapper.Map<Customer>(command.CreateCustomerDto);
                     customer = await _unitOfWork.CustomerRepository.Add(customer);
                     await _unitOfWork.Save();
                     response.Id = customer.Id;

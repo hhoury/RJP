@@ -16,5 +16,19 @@ namespace RJP.Application.DTOs.Validators
                .NotEmpty().WithMessage("{PropertyName} is required")
                .NotNull();
         }
+
+    }
+    public class CreateCustomerDtoValidator : AbstractValidator<CreateCustomerDto>
+    {
+        public CreateCustomerDtoValidator()
+        {
+            RuleFor(c => c.Name)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull();
+            RuleFor(c => c.Surname)
+               .NotEmpty().WithMessage("{PropertyName} is required")
+               .NotNull();
+        }
+
     }
 }

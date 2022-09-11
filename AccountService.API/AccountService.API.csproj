@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BSyncroRJP.Persistence\BSyncroRJP.Persistence.csproj" />
+    <ProjectReference Include="..\BSyncroRJP.Persistence\RJP.Persistence.csproj" />
     <ProjectReference Include="..\RJP.Application\RJP.Application.csproj" />
     <ProjectReference Include="..\RJP.Domain\RJP.Domain.csproj" />
   </ItemGroup>

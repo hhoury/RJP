@@ -1,8 +1,9 @@
-﻿using RJP.Application.Contracts.Persistence;
+﻿using BSyncroRJP.Persistence;
+using RJP.Application.Contracts.Persistence;
 using System;
 using System.Threading.Tasks;
 
-namespace BSyncroRJP.Persistence.Repositories
+namespace RJP.Persistence.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

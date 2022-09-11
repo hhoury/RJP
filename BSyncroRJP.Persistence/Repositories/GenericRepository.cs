@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BSyncroRJP.Persistence;
+using Microsoft.EntityFrameworkCore;
 using RJP.Application.Contracts.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSyncroRJP.Persistence.Repositories
+namespace RJP.Persistence.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

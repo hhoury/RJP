@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BSyncroRJP.Persistence;
+using Microsoft.EntityFrameworkCore;
 using RJP.Application.Contracts.Persistence;
 using RJP.Domain;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSyncroRJP.Persistence.Repositories
+namespace RJP.Persistence.Repositories
 {
     public class TransactionRepository : GenericRepository<Transaction>, ITransactionRepository
     {
@@ -20,7 +21,7 @@ namespace BSyncroRJP.Persistence.Repositories
         public async Task<bool> DeleteTransactionsByAccountId(int accountId)
         {
             var transactionsList = await _dbContext.Transactions.Where(trx => trx.AccountId == accountId).ToListAsync();
-             _dbContext.Transactions.RemoveRange(transactionsList);
+            _dbContext.Transactions.RemoveRange(transactionsList);
             return true;
         }
 

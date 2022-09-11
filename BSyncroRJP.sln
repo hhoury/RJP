@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RJP.Domain", "RJP.Domain\RJ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RJP.Application", "RJP.Application\RJP.Application.csproj", "{263E77D3-5FC3-4501-A8A1-DF770583B7AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSyncroRJP.Persistence", "BSyncroRJP.Persistence\BSyncroRJP.Persistence.csproj", "{5AA80333-701D-4330-8D1D-57C8A0BA8B1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RJP.Persistence", "BSyncroRJP.Persistence\RJP.Persistence.csproj", "{5AA80333-701D-4330-8D1D-57C8A0BA8B1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

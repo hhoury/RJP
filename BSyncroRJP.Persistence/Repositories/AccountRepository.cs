@@ -1,21 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BSyncroRJP.Persistence;
+using Microsoft.EntityFrameworkCore;
 using RJP.Application.Contracts.Persistence;
 using RJP.Domain;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace BSyncroRJP.Persistence.Repositories
+namespace RJP.Persistence.Repositories
 {
-    public class AccountRepository : GenericRepository<Account> ,IAccountRepository
+    public class AccountRepository : GenericRepository<Account>, IAccountRepository
     {
         private readonly RJPDbContext _dbContext;
         public AccountRepository(RJPDbContext dbContext) : base(dbContext)
         {
-           _dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> DeleteAccountsByCustomerId(int customerId)

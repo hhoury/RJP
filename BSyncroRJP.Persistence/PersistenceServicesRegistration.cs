@@ -1,8 +1,8 @@
-﻿using BSyncroRJP.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RJP.Application.Contracts.Persistence;
+using RJP.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
