@@ -16,7 +16,7 @@ namespace RJP.Application.Features.Transactions.Commands
 {
     public class CreateTransactionCommand : IRequest<BaseCommandResponse>
     {
-        public TransactionDto TransacionDto{ get; set; }
+        public CreateTransactionDto CreateTransactionDto { get; set; }
         public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, BaseCommandResponse>
         {
             private readonly IUnitOfWork _unitOfWork;
@@ -31,8 +31,8 @@ namespace RJP.Application.Features.Transactions.Commands
             public async Task<BaseCommandResponse> Handle(CreateTransactionCommand command, CancellationToken cancellationToken)
             {
                 var response = new BaseCommandResponse();
-                var validator = new TransactionDtoValidator(_unitOfWork.AccountRepository);
-                var validationResult = await validator.ValidateAsync(command.TransacionDto);
+                var validator = new CreateTransactionDtoValidator(_unitOfWork.AccountRepository);
+                var validationResult = await validator.ValidateAsync(command.CreateTransactionDto);
 
                 if (!validationResult.IsValid)
                 {
@@ -43,9 +43,10 @@ namespace RJP.Application.Features.Transactions.Commands
                 }
                 else
                 {
-                    var transaction = _mapper.Map<Transaction>(command.TransacionDto);
+                    var transaction = _mapper.Map<Transaction>(command.CreateTransactionDto);
                     transaction = await _unitOfWork.TransactionRepository.Add(transaction);
                     await _unitOfWork.Save();
+                    response.Id = transaction.Id;
                     response.Success = true;
                     response.Message = "Transaction Creation Successful";
                 }

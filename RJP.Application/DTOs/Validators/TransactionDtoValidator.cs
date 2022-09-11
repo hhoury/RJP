@@ -24,4 +24,22 @@ namespace RJP.Application.DTOs.Validators
                 .WithMessage("{PropertyName} does not exist");
         }
     }
+    public class CreateTransactionDtoValidator : AbstractValidator<CreateTransactionDto>
+    {
+        private readonly IAccountRepository _accountRepository;
+        public CreateTransactionDtoValidator(IAccountRepository accountRepository)
+        {
+            _accountRepository = accountRepository;
+            RuleFor(t => t.AccountId)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull()
+                .GreaterThan(0)
+                .MustAsync(async (id, token) =>
+                {
+                    var accountExist = await _accountRepository.Exists(id);
+                    return !accountExist;
+                })
+                .WithMessage("{PropertyName} does not exist");
+        }
+    }
 }

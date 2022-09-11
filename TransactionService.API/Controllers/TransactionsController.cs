@@ -41,9 +41,9 @@ namespace TransactionService.API.Controllers
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult> Post([FromBody] TransactionDto transaction)
+        public async Task<ActionResult> Post([FromBody] CreateTransactionDto transaction)
         {
-            var command = new CreateTransactionCommand { TransacionDto = transaction};
+            var command = new CreateTransactionCommand { CreateTransactionDto = transaction};
             var response = await _mediator.Send(command);
             return Ok(response);
         }

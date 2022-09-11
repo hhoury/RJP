@@ -14,6 +14,8 @@ namespace RJP.Application.Profiles
             CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<Account, AccountDto>().ReverseMap();
             CreateMap<Transaction, TransactionDto>().ReverseMap();
+            CreateMap<Account, CreateAccountDto>().ReverseMap();
+            CreateMap<Transaction, CreateTransactionDto>().ReverseMap();
         }
     }
 }

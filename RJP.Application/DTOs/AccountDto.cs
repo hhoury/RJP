@@ -10,9 +10,9 @@ namespace RJP.Application.DTOs
     public class AccountDto : BaseDto
     {
         [Column(TypeName = "decimal(14, 2)")]
-        public decimal Balance { get; set; }
+        public decimal Balance { get; set; } = 0;
 
         public int CustomerId { get; set; }
-        public CustomerDto Customer{ get; set; } 
+        public CustomerDto Customer { get; set; }
     }
 }

@@ -26,7 +26,9 @@ namespace BSyncroRJP.Persistence.Repositories
 
         public async Task<IReadOnlyList<Transaction>> GetByAccountId(int accountId)
         {
-            var transactionsList = await _dbContext.Transactions.Where(trx => trx.AccountId == accountId).ToListAsync();
+            var transactionsList = await _dbContext.Transactions.Where(trx => trx.AccountId == accountId)
+                .Include(trx => trx.Account)
+                .Include(acc => acc.Account.Customer).ToListAsync();
             return transactionsList;
         }
     }

@@ -45,6 +45,7 @@ namespace RJP.Application.Features.Customers.Commands
                     var customer = _mapper.Map<Customer>(command.CustomerDto);
                     customer = await _unitOfWork.CustomerRepository.Add(customer);
                     await _unitOfWork.Save();
+                    response.Id = customer.Id;
                     response.Success = true;
                     response.Message = "Customer Creation Successful";
                     

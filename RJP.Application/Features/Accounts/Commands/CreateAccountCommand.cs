@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.VisualBasic;
 using RJP.Application.Contracts.Persistence;
 using RJP.Application.DTOs;
 using RJP.Application.DTOs.Validators;
@@ -14,7 +15,7 @@ namespace RJP.Application.Features.Accounts.Commands
 {
     public class CreateAccountCommand : IRequest<BaseCommandResponse>
     {
-        public AccountDto AccountDto{ get; set; }
+        public CreateAccountDto CreateAccountDto { get; set; }
 
         public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand, BaseCommandResponse>
         {
@@ -30,8 +31,8 @@ namespace RJP.Application.Features.Accounts.Commands
             {
                 var response = new BaseCommandResponse();
 
-                var validator = new AccountDtoValidator(_unitOfWork.CustomerRepository);
-                var validationResult = await validator.ValidateAsync(command.AccountDto);
+                var validator = new CreateAccountDtoValidator(_unitOfWork.CustomerRepository);
+                var validationResult = await validator.ValidateAsync(command.CreateAccountDto);
 
                 if (!validationResult.IsValid)
                 {
@@ -42,14 +43,24 @@ namespace RJP.Application.Features.Accounts.Commands
                 }
                 else
                 {
-                    var account = _mapper.Map<Account>(command.AccountDto);
+                    var account = _mapper.Map<Account>(command.CreateAccountDto);
                     account = await _unitOfWork.AccountRepository.Add(account);
                     await _unitOfWork.Save();
+                    if (account.Balance > 0)
+                    {
+                        var createTransaction = new CreateTransactionDto();
+                        createTransaction.TransactionAmount = account.Balance;
+                        createTransaction.AccountId = account.Id;
+                        var transaction = _mapper.Map<Transaction>(createTransaction);
+                        await _unitOfWork.TransactionRepository.Add(transaction);
+                        await _unitOfWork.Save();
+                    }
+                    response.Id = account.Id;
                     response.Success = true;
                     response.Message = "Account Creation Successful";
                 }
 
-               
+
                 return response;
 
             }

@@ -29,5 +29,30 @@ namespace RJP.Application.DTOs.Validators
                 .GreaterThanOrEqualTo(0).WithMessage("{PropertyName} can not be negative");
 
         }
+
+    }
+    public class CreateAccountDtoValidator : AbstractValidator<CreateAccountDto>
+    {
+        private readonly ICustomerRepository _customerRepository;
+
+        public CreateAccountDtoValidator(ICustomerRepository customerRepository)
+        {
+            _customerRepository = customerRepository;
+            RuleFor(a => a.CustomerId)
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .NotNull()
+                .GreaterThan(0)
+                .MustAsync(async (id, token) =>
+                {
+                    var accountExist = await _customerRepository.Exists(id);
+                    return accountExist;
+                })
+                .WithMessage("{PropertyName} does not exist"); ;
+            RuleFor(a => a.Balance)
+                .GreaterThanOrEqualTo(0).WithMessage("{PropertyName} can not be negative");
+
+
+        }
+
     }
 }

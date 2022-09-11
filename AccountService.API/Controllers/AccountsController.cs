@@ -35,7 +35,7 @@ namespace AccountService.API.Controllers
         }
 
         [HttpGet]
-        [Route("(customer/{customerId})")]
+        [Route("customer/{customerId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -45,9 +45,11 @@ namespace AccountService.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody]  CreateAccountCommand command)
+        public async Task<ActionResult> Post([FromBody] CreateAccountDto account)
         {
-            return Ok(await _mediator.Send(command));
+            var command = new CreateAccountCommand { CreateAccountDto = account };
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
