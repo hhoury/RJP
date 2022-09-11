@@ -28,7 +28,7 @@ namespace RJP.Application.Features.Accounts.Commands
             {
                 var validator = new AccountDtoValidator(_unitOfWork.CustomerRepository);
                 var account = await _unitOfWork.AccountRepository.Get(command.AccountDto.Id);
-                _mapper.Map(command.AccountDto,account);
+                _mapper.Map(command.AccountDto, account);
                 await _unitOfWork.AccountRepository.Update(account);
                 await _unitOfWork.Save();
                 return Unit.Value;

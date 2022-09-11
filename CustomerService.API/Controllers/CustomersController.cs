@@ -44,9 +44,9 @@ namespace CustomerService.API.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Put([FromBody] CustomerDto customer)
+        public async Task<ActionResult> Put(int id,[FromBody] CustomerDto customer)
         {
-            var command = new UpdateCustomerCommand { CustomerDto = customer };
+            var command = new UpdateCustomerCommand {CustomerDto = customer };
             await _mediator.Send(command);
             return NoContent();
         }

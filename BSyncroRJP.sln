@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RJP.Application", "RJP.Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RJP.Persistence", "BSyncroRJP.Persistence\RJP.Persistence.csproj", "{5AA80333-701D-4330-8D1D-57C8A0BA8B1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RJP.Application.UnitTests", "RJP.Application.UnitTests\RJP.Application.UnitTests.csproj", "{3474A19B-C9DE-448C-BF26-4CBF6EED446F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{5AA80333-701D-4330-8D1D-57C8A0BA8B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AA80333-701D-4330-8D1D-57C8A0BA8B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AA80333-701D-4330-8D1D-57C8A0BA8B1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3474A19B-C9DE-448C-BF26-4CBF6EED446F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3474A19B-C9DE-448C-BF26-4CBF6EED446F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3474A19B-C9DE-448C-BF26-4CBF6EED446F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3474A19B-C9DE-448C-BF26-4CBF6EED446F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{CCEAC1DE-6A01-47EB-858F-2F38004D0D21} = {0DD8C66D-BE80-4A08-97C8-486C5123BBB5}
 		{263E77D3-5FC3-4501-A8A1-DF770583B7AC} = {0DD8C66D-BE80-4A08-97C8-486C5123BBB5}
 		{5AA80333-701D-4330-8D1D-57C8A0BA8B1C} = {DE13559F-386F-473C-9A8B-F4BA4630D0A3}
+		{3474A19B-C9DE-448C-BF26-4CBF6EED446F} = {06146547-8C9A-4946-A474-69D20298C970}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE27AF56-FB3B-4139-A24F-C131A9B72AEC}
