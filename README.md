@@ -2,6 +2,16 @@
 
 .Net Core Project built with clean design and architecture using CQRS and MediatR pattern
 
+<strong>Key Features</strong>
+-Onion Architecture<br />
+-CQRS<br />
+-MediatR pattern<br />
+-Serilog<br />
+-Custom Exception Handling<br />
+-Custom Exception Middleware<br />
+-Swagger<br />
+-Validation using Fluent Validation<br />
+
 # Description
 The Project consists of 3 main microservices (APIs) that contain endpoints for all CRUD operations<br />
 -CustomerService.API<br />
