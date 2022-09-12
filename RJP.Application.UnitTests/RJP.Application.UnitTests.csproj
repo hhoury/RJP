@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Accounts\Commands\CreateAccountCommandTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="Moq" Version="4.18.2" />
     <PackageReference Include="Shouldly" Version="4.1.0" />
@@ -22,9 +26,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Accounts\" />
-    <Folder Include="Customers\" />
-    <Folder Include="Transactions\" />
+    <Folder Include="Accounts\Queries\" />
+    <Folder Include="Customers\Commands\" />
+    <Folder Include="Customers\Queries\" />
+    <Folder Include="Transactions\Commands\" />
+    <Folder Include="Transactions\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Accounts\Commands\CreateAccountCommandTest.cs" />
   </ItemGroup>
 
   <ItemGroup>
