@@ -20,14 +20,14 @@ The Project consists of 3 main microservices (APIs) that contain endpoints for a
 
 
 # Packages Installed
-MediatR<br />
-Automapper<br />
-Fluent Validation<br />
-Entity Framework Core<br />
-Serilog<br />
-Moq<br />
-Shouldly<br />
-Swagger<br />
+-MediatR<br />
+-Automapper<br />
+-Fluent Validation<br />
+-Entity Framework Core<br />
+-Serilog<br />
+-Moq<br />
+-Shouldly<br />
+-Swagger<br />
 
 # Running the Project
 To run the project please do the following: <br />
