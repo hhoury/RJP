@@ -2,7 +2,7 @@
 
 .Net Core Project built with clean design and architecture using CQRS and MediatR pattern
 
-<strong>Key Features</strong>
+<strong>Key Features</strong><br />
 -Onion Architecture<br />
 -CQRS<br />
 -MediatR pattern<br />
