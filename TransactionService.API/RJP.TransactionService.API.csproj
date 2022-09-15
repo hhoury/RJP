@@ -5,24 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="10.0.1" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
-  </ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.17" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>  </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BSyncroRJP.Persistence\RJP.Persistence.csproj" />
     <ProjectReference Include="..\RJP.Application\RJP.Application.csproj" />
+    <ProjectReference Include="..\RJP.Persistence\RJP.Persistence.csproj" />
     <ProjectReference Include="..\RJP.Domain\RJP.Domain.csproj" />
   </ItemGroup>
 

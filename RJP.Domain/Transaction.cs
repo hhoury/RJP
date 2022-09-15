@@ -13,6 +13,7 @@ namespace RJP.Domain
         public decimal TransactionAmount { get; set; }
 
         public int AccountId { get; set; }
+        [ForeignKey("AccountId")]
         public Account Account { get; set; }
     }
 }

@@ -11,8 +11,8 @@ namespace RJP.Domain
     {
         [Column(TypeName = "decimal(14, 2)")]
         public decimal Balance { get; set; }
-
         public int CustomerId { get; set; }
+        [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
     }
 }

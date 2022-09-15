@@ -1,7 +1,3 @@
-
-
-
-using BSyncroRJP.Persistence;
 using CustomerService.API.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RJP.Application;
+using RJP.Persistence;
 using System.Reflection;
 
 namespace CustomerService.API

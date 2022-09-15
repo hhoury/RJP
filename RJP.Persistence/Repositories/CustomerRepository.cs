@@ -1,5 +1,4 @@
-﻿using BSyncroRJP.Persistence;
-using RJP.Application.Contracts.Persistence;
+﻿using RJP.Application.Contracts.Persistence;
 using RJP.Domain;
 using System;
 using System.Collections.Generic;

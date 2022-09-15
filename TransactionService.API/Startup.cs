@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RJP.Application;
-using BSyncroRJP.Persistence;
+using RJP.Persistence;
 using TransactionService.API.Middleware;
 
 namespace TransactionService.API

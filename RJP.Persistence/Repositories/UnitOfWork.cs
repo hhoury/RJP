@@ -1,5 +1,4 @@
-﻿using BSyncroRJP.Persistence;
-using RJP.Application.Contracts.Persistence;
+﻿using RJP.Application.Contracts.Persistence;
 using System;
 using System.Threading.Tasks;
 

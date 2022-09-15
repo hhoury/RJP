@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BSyncroRJP.Persistence
+namespace RJP.Persistence
 {
-    public  class RJPDbContext : DbContext
+    public class RJPDbContext : DbContext
     {
         public RJPDbContext(DbContextOptions options) : base(options)
         {
@@ -30,6 +30,13 @@ namespace BSyncroRJP.Persistence
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.DateCreated = DateTime.Now;
+                }
+                else
+                {
+                    if (entry.State == EntityState.Modified)
+                    {
+                        entry.Entity.LastModifiedDate = DateTime.Now;
+                    }
                 }
             }
 

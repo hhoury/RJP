@@ -1,5 +1,4 @@
-﻿using BSyncroRJP.Persistence;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RJP.Application.Contracts.Persistence;
 using RJP.Domain;
 using System.Collections.Generic;
